@@ -11,7 +11,8 @@ L.Marker.prototype.onAdd = function() {
 	_onAdd.apply(self, arguments);
 	var iconInstance = self.options.icon;
 	if (iconInstance && iconInstance._cssIn) {
-		iconInstance._cssIn(self._icon, self._shadow);
+		var visible = self._map.getBounds().contains(self.getLatLng());
+		if (visible) iconInstance._cssIn(self._icon, self._shadow);
 	}
 };
 
@@ -19,11 +20,10 @@ L.Marker.prototype.onRemove = function(map) {
 	var self = this, args = arguments;
 	var iconInstance = self.options.icon;
 	if (iconInstance && iconInstance._cssOut) {
+		var visible = self._map.getBounds().contains(self.getLatLng());
+		if (!visible) return _onRemove.apply(self, args);
 		iconInstance._cssOut(self._icon, self._shadow, function() {
-			self._map = map;
-			if (self._icon) {
-				_onRemove.apply(self, args);
-			}
+			_onRemove.apply(self, args);
 		});
 	} else {
 		_onRemove.apply(self, args);
