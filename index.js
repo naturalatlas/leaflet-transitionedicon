@@ -16,12 +16,15 @@ L.Marker.prototype.onAdd = function() {
 	}
 };
 
-L.Marker.prototype.onRemove = function() {
+L.Marker.prototype.onRemove = function(map) {
 	var self = this, args = arguments;
 	var iconInstance = self.options.icon;
 	if (iconInstance && iconInstance._cssOut) {
 		iconInstance._cssOut(self._icon, self._shadow, function() {
-			_onRemove.apply(self, args);
+			self._map = map;
+			if (self._icon) {
+				_onRemove.apply(self, args);
+			}
 		});
 	} else {
 		_onRemove.apply(self, args);
