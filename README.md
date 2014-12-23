@@ -1,7 +1,7 @@
 # L.TransitionedIcon
 [![NPM version](http://img.shields.io/npm/v/leaflet-transitionedicon.svg?style=flat)](https://www.npmjs.org/package/leaflet-transitionedicon)
 
-A [Leaflet](http://leafletjs.com/) plugin that extends [L.Icon](http://leafletjs.com/reference.html#icon) to support transitioning with CSS3 transitions. The way it works is inspired by React's [ReactCSSTransitionGroup](http://facebook.github.io/react/docs/animation.html).
+A [Leaflet](http://leafletjs.com/) plugin that extends [L.Icon](http://leafletjs.com/reference.html#icon) to support transitioning with CSS3 transitions – great for easing markers into view. It even supports jitter for staggering markers into view (to prevent visual overload). The way it works is inspired by React's [ReactCSSTransitionGroup](http://facebook.github.io/react/docs/animation.html).
 
 ```sh
 $ npm install leaflet-transitionedicon --save
@@ -12,7 +12,6 @@ $ npm install leaflet-transitionedicon --save
 ```js
 var TransitionedIcon = require('leaflet-transitionedicon');
 
-// marker template
 var MyIcon = TransitionedIcon.extend({
     options: {
         // iconUrl: 'images/marker-icon.png',
@@ -31,11 +30,11 @@ var MyIcon = TransitionedIcon.extend({
 
 The main options to note are:
 
-   - `cssTransitionName` – The name to use for CSS classes (see below)
-   - `cssTransitionJitterIn` – Milliseconds of jitter before the marker is displayed. Good for staggering results into view to prevent a bunch of icons coming into view all at once, which can be overwhelming.
-   - `cssTransitionJitterOut` – Milliseconds of jitter to wait before removing a marker. Useful for staggering the removal of markers. 
+   - `cssTransitionName` – The name to use for transition classes (see below)
+   - `cssTransitionJitterIn` – Milliseconds of jitter before the marker is displayed.
+   - `cssTransitionJitterOut` – Milliseconds of jitter to wait before removing a marker.
 
-Using `cssTransitionName`, the plugin will create the following classes with the appropriate timing to trigger transitions:
+Using `cssTransitionName`, the plugin will apply classes that represent the transition lifecycle. For example implementation, check out the [demo code](./demo/index.html).
 
 ```css
 .my-transition { } /* always on element, from birth to death */
@@ -45,7 +44,7 @@ Using `cssTransitionName`, the plugin will create the following classes with the
 .my-transition-leave-active { }  /* end state */
 ```
 
-No other configuration is necessary. Simply add and remove markers from the map as usual:
+That's it – no other configuration is necessary. Simply add and remove markers from the map as usual:
 
 ```js
 // add marker to map (transition in)
