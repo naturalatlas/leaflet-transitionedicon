@@ -1,6 +1,6 @@
 {
   "name": "leaflet-transitionedicon",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Leaflet plugin for transitioning in/out markers with CSS transitions",
   "repository": {
     "type": "git",
