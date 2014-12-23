@@ -1,0 +1,4 @@
+node_modules
+demo/leaflet.css
+demo/images
+demo/*.dist*

@@ -1,0 +1,24 @@
+{
+  "name": "leaflet-transitionedicon",
+  "version": "0.0.0",
+  "description": "Leaflet plugin for transitioning in/out markers with CSS transitions",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/naturalatlas/leaflet-transitionedicon.git"
+  },
+  "keywords": [
+  	"leaflet",
+  	"css",
+  	"transition"
+  ],
+  "author": "Brian Reavis <brian@thirdroute.com>",
+  "license": "Apache License, v2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "leaflet": "^0.7.3",
+    "webpack": "^1.4.14"
+  }
+}
