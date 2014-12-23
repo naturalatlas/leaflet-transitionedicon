@@ -23,7 +23,8 @@ var MyIcon = TransitionedIcon.extend({
         // shadowSize: [41, 41],
         cssTransitionJitterIn: 0,
         cssTransitionJitterOut: 0,
-        cssTransitionName: 'my-transition'
+        cssTransitionName: 'my-transition',
+        cssTransitionBatches: 0
     }
 });
 ```
@@ -33,6 +34,7 @@ The main options to note are:
    - `cssTransitionName` – The name to use for transition classes (see below)
    - `cssTransitionJitterIn` – Milliseconds of jitter before the marker is displayed.
    - `cssTransitionJitterOut` – Milliseconds of jitter to wait before removing a marker.
+   - `cssTransitionBatches` – If not zero, the plugin will group transitions in and out into the specified number of batches. This only makes sense to use when jittering is enabled. Batching can be useful for aesthetic and/or performance reasons.
 
 Using `cssTransitionName`, the plugin will apply classes that represent the transition lifecycle. For example implementation, check out the [demo code](./demo/index.html).
 

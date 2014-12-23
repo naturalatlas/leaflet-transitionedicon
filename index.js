@@ -1,6 +1,5 @@
 var bind = require('./lib/bind.js');
 var triggerTransition = require('./lib/triggerTransition.js');
-var requestAnimationFrame = require('./lib/requestAnimationFrame.js');
 var transitionEvent = require('./lib/transitionEvent.js');
 var L = window.L;
 
@@ -43,6 +42,7 @@ L.Marker.prototype.onRemove = function(map) {
  * Usage:
  *   var MyIcon = L.TransitionedIcon.extend({
  *       options: {
+ *           cssTransitionBatches: 3,
  *           cssTransitionJitterIn: 0,
  *           cssTransitionJitterOut: 0,
  *           cssTransitionName: 'my-transition'
@@ -57,10 +57,58 @@ module.exports = !transitionEvent ? L.Icon : L.Icon.extend({
 		var transitionName = options.cssTransitionName;
 		icon.className += ' ' + transitionName;
 		shadow.className += ' ' + transitionName;
-		triggerTransition(icon, shadow, transitionName + '-enter', options.cssTransitionJitterIn, callback);
+		queueTransition(options.cssTransitionBatches, transitionName + '-enter', [icon, shadow], options.cssTransitionJitterIn, callback);
 	},
 	_cssOut: function(icon, shadow, callback) {
 		var options = this.options;
-		triggerTransition(icon, shadow, options.cssTransitionName + '-leave', options.cssTransitionJitterOut, callback);
+		queueTransition(options.cssTransitionBatches, options.cssTransitionName + '-leave', [icon, shadow], options.cssTransitionJitterOut, callback);
 	}
 });
+
+var _queuedTransitions = {};
+function queueTransition(batchCount, className, els, jitter, callback) {
+	// execute immediately if batching disabled
+	if (!batchCount) return triggerTransition(els, className, jitter, callback);
+
+	// push to queue
+	var queue;
+	var queueKey = className;
+	if (!_queuedTransitions[queueKey]) {
+		queue = _queuedTransitions[className] = {className: className, jitter: jitter, els: [], callbacks: []};
+		setTimeout(queueExecutor(queueKey, batchCount));
+	} else {
+		queue = _queuedTransitions[className];
+	}
+	queue.els = queue.els.concat(els);
+	if (callback) queue.callbacks.push(callback);
+}
+
+function queueExecutor(key, batchCount) {
+	return function() {
+		var queue = _queuedTransitions[key];
+		if (!queue) return;
+		delete _queuedTransitions[key];
+
+		var i, n;
+		var batches = [];
+		var batchesExpected = Math.min(batchCount, queue.els.length);
+		var batchesCompleted = 0;
+		for (i = 0; i < batchCount; i++) {
+			batches[i] = [];
+		}
+		for (i = 0, n = queue.els.length; i < n; i++) {
+			var batchIndex = i % batchCount;
+			batches[batchIndex].push(queue.els[i]);
+		}
+		for (i = 0; i < batchCount; i++) {
+			triggerTransition(batches[i], queue.className, queue.jitter, done);
+		}
+		function done() {
+			if (++batchesCompleted === batchesExpected) {
+				for (var i = 0, n = queue.callbacks.length; i < n; i++) {
+					queue.callbacks[i]();
+				}
+			}
+		}
+	};
+}

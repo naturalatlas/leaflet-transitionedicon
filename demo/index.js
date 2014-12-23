@@ -20,8 +20,9 @@ var MyIcon = L.TransitionedIcon.extend({
 		iconAnchor: [12, 41],
 		popupAnchor: [1, -34],
 		shadowSize: [41, 41],
-		cssTransitionJitterIn: 1000,
-		cssTransitionJitterOut: 1000,
+		cssTransitionBatches: 0,
+		cssTransitionJitterIn: 1200,
+		cssTransitionJitterOut: 300,
 		cssTransitionName: 'my-transition'
 	}
 });
@@ -29,7 +30,7 @@ var MyIcon = L.TransitionedIcon.extend({
 // add markers
 function createMarkers() {
 	var lat, lon;
-	var count = 5 + Math.round(Math.random() * 5);
+	var count = 50 + Math.round(Math.random() * 5);
 	var jitter = 0.03;
 	var markers = [];
 	for (var i = 0; i < count; i++) {
