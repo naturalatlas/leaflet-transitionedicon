@@ -1,7 +1,11 @@
-.PHONY: demo release
+.PHONY: demo release-demo release
 
 demo:
 	cd demo && make
+
+release-demo: demo
+	npm install gh-pages
+	node ./publish.js
 
 release:
 ifeq ($(strip $(version)),)

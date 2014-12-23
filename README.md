@@ -1,7 +1,7 @@
-# L.TransitionedIcon
+# Leaflet.TransitionedIcon
 [![NPM version](http://img.shields.io/npm/v/leaflet-transitionedicon.svg?style=flat)](https://www.npmjs.org/package/leaflet-transitionedicon)
 
-A [Leaflet](http://leafletjs.com/) plugin that extends [L.Icon](http://leafletjs.com/reference.html#icon) to support transitioning with CSS3 transitions – great for easing markers into view. It even supports jitter for staggering markers into view (to prevent visual overload). The way it works is inspired by React's [ReactCSSTransitionGroup](http://facebook.github.io/react/docs/animation.html).
+A [Leaflet](http://leafletjs.com/) plugin that extends [L.Icon](http://leafletjs.com/reference.html#icon) to support transitioning with CSS3 transitions – great for easing markers into view ([demo](http://naturalatlas.github.io/leaflet-transitionedicon/)). It even supports jitter for staggering markers into view (to prevent visual overload). The way it works is inspired by React's [ReactCSSTransitionGroup](http://facebook.github.io/react/docs/animation.html).
 
 ```sh
 $ npm install leaflet-transitionedicon --save
