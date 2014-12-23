@@ -157,7 +157,9 @@
 		_cssIn: function(icon, shadow, callback) {
 			var options = this.options;
 			var transitionName = options.cssTransitionName;
+			icon.style.visibility = 'hidden';
 			icon.className += ' ' + transitionName;
+			shadow.style.visibility = 'hidden';
 			shadow.className += ' ' + transitionName;
 			queueTransition(options.cssTransitionBatches, transitionName + '-enter', [icon, shadow], options.cssTransitionJitterIn, callback);
 		},
@@ -239,6 +241,7 @@
 		var leave = /-leave$/.test(className);
 		for (i = 0; i < n; i++) {
 			els[i].className += ' ' + className;
+			if (!leave) els[i].style.visibility = 'visible';
 		}
 
 		var completed = 0;
