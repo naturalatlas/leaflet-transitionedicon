@@ -55,7 +55,9 @@ module.exports = !transitionEvent ? L.Icon : L.Icon.extend({
 	_cssIn: function(icon, shadow, callback) {
 		var options = this.options;
 		var transitionName = options.cssTransitionName;
+		icon.style.visibility = 'hidden';
 		icon.className += ' ' + transitionName;
+		shadow.style.visibility = 'hidden';
 		shadow.className += ' ' + transitionName;
 		queueTransition(options.cssTransitionBatches, transitionName + '-enter', [icon, shadow], options.cssTransitionJitterIn, callback);
 	},
