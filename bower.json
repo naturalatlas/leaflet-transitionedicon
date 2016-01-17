@@ -1,0 +1,25 @@
+{
+  "name": "leaflet-transitionedicon",
+  "description": "Leaflet plugin for transitioning in/out markers with CSS transitions",
+  "main": [
+    "index.js"
+    ],
+  "dependencies": {
+    "leaflet": "~0.7.3",
+    "webpack": "~1.4.14"
+  },
+  "devDependencies": {
+  },
+  "authors": [
+    "Brian Reavis <brian@thirdroute.com>"
+  ],
+   "license": "Apache License, v2.0",
+  "ignore": [
+    "example",
+    "**/*.txt",
+    "README",
+    "package.json",
+    ".gitignore",
+    "bower.json"
+  ]
+}
