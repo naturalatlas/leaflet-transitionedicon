@@ -23,7 +23,9 @@ L.Marker.prototype.onRemove = function(map) {
 		var visible = self._map.getBounds().contains(self.getLatLng());
 		if (!visible) return _onRemove.apply(self, args);
 		iconInstance._cssOut(self._icon, self._shadow, function() {
+			self._map = self._mapToAdd = map;
 			_onRemove.apply(self, args);
+			self._map = self._mapToAdd = null;
 		});
 	} else {
 		_onRemove.apply(self, args);
